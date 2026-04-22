@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Fournisseur } from '../models/fournisseur';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FournisseurService {
+  private url = 'http://localhost:9090/fournisseur';
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Fournisseur[]> {
+    return this.http.get<Fournisseur[]>(`${this.url}/getall`);
+  }
+
+  getById(id: number): Observable<Fournisseur> {
+    return this.http.get<Fournisseur>(`${this.url}/get/${id}`);
+  }
+
+  evaluer(id: number): Observable<void> {
+    return this.http.put<void>(`${this.url}/evaluer/${id}`, {});
+  }
+
+  save(f: Fournisseur): Observable<void> {
+    return this.http.post<void>(`${this.url}/add`, f);
+  }
+
+  update(f: Fournisseur): Observable<void> {
+    return this.http.put<void>(`${this.url}/update`, f);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/delete/${id}`);
+  }
+}
