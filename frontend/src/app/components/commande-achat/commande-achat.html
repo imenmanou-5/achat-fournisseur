@@ -1,0 +1,56 @@
+<div>
+  <div class="page-header">
+    <h2>Commandes Achat</h2>
+    <p>Gérez et suivez vos commandes fournisseurs</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Ajouter / Modifier</span>
+    </div>
+    <div class="form-grid">
+      <input [(ngModel)]="commande.statut" placeholder="Statut" />
+      <input [(ngModel)]="commande.montant" placeholder="Montant" type="number" />
+      <input [(ngModel)]="commande.idFournisseur" placeholder="ID Fournisseur" type="number" />
+      <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
+      <button class="btn-secondary" (click)="reset()">Annuler</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Liste des Commandes</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Montant</th>
+          <th>Fournisseur</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of commandes">
+          <td>{{ c.id }}</td>
+          <td>{{ c.date }}</td>
+          <td>
+            <span class="badge badge-blue">{{ c.statut }}</span>
+          </td>
+          <td>{{ c.montant }} DT</td>
+          <td>{{ c.idFournisseur }}</td>
+          <td>
+            <div class="actions">
+              <button class="btn-warning" (click)="edit(c)">Modifier</button>
+              <button class="btn-danger" (click)="delete(c.id)">Supprimer</button>
+              <button class="btn-primary" (click)="updateStatut(c.id, 'En cours')">En cours</button>
+              <button class="btn-success" (click)="updateStatut(c.id, 'Livrée')">Livrée</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

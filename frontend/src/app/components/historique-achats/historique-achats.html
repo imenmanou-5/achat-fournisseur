@@ -1,0 +1,88 @@
+<div>
+  <div class="page-header">
+    <h2>Historique Achats</h2>
+    <p>Historique et comparaison des offres fournisseurs</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Ajouter / Modifier</span>
+    </div>
+    <div class="form-grid">
+      <input [(ngModel)]="historique.produit" placeholder="Produit" />
+      <input [(ngModel)]="historique.quantite" placeholder="Quantité" type="number" />
+      <input [(ngModel)]="historique.delaiLivraison" placeholder="Délai Livraison" type="number" />
+      <input [(ngModel)]="historique.date" placeholder="Date" type="date" />
+      <input [(ngModel)]="historique.idFournisseur" placeholder="ID Fournisseur" type="number" />
+      <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
+      <button class="btn-secondary" (click)="reset()">Annuler</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Comparer les Offres</span>
+    </div>
+    <div class="form-grid">
+      <input [(ngModel)]="produitRecherche" placeholder="Nom du produit à comparer" />
+      <button class="btn-primary" (click)="comparer()">Comparer</button>
+    </div>
+    <div *ngIf="comparaison.length > 0" style="margin-top: 16px">
+      <table>
+        <thead>
+          <tr>
+            <th>ID Fournisseur</th>
+            <th>Quantité</th>
+            <th>Délai Livraison</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let h of comparaison">
+            <td>{{ h.idFournisseur }}</td>
+            <td>{{ h.quantite }}</td>
+            <td>
+              <span class="badge badge-orange">{{ h.delaiLivraison }} jours</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Liste des Historiques</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Délai</th>
+          <th>Date</th>
+          <th>Fournisseur</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of historiques">
+          <td>{{ h.id }}</td>
+          <td>{{ h.produit }}</td>
+          <td>{{ h.quantite }}</td>
+          <td>
+            <span class="badge badge-orange">{{ h.delaiLivraison }} jours</span>
+          </td>
+          <td>{{ h.date }}</td>
+          <td>{{ h.idFournisseur }}</td>
+          <td>
+            <div class="actions">
+              <button class="btn-warning" (click)="edit(h)">Modifier</button>
+              <button class="btn-danger" (click)="delete(h.id)">Supprimer</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

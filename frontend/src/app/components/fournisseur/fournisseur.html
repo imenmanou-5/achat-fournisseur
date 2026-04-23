@@ -1,0 +1,61 @@
+<div>
+  <div class="page-header">
+    <h2>Fournisseurs</h2>
+    <p>Gérez vos fournisseurs et évaluez leurs performances</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Fournisseurs</div>
+      <div class="stat-value">{{ fournisseurs.length }}</div>
+      <span class="stat-badge">Active</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Ajouter / Modifier</span>
+    </div>
+    <div class="form-grid">
+      <input [(ngModel)]="fournisseur.nom" placeholder="Nom du fournisseur" />
+      <input [(ngModel)]="fournisseur.contact" placeholder="Contact" />
+      <input [(ngModel)]="fournisseur.note" placeholder="Note" type="number" />
+      <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
+      <button class="btn-secondary" (click)="reset()">Annuler</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Liste des Fournisseurs</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Contact</th>
+          <th>Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of fournisseurs">
+          <td>{{ f.id }}</td>
+          <td>{{ f.nom }}</td>
+          <td>{{ f.contact }}</td>
+          <td>
+            <span class="badge badge-green">⭐ {{ f.note }}/5</span>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="btn-warning" (click)="edit(f)">Modifier</button>
+              <button class="btn-danger" (click)="delete(f.id)">Supprimer</button>
+              <button class="btn-primary" (click)="evaluer(f.id)">Évaluer</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
