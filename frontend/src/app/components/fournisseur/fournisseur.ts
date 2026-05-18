@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // ← ajouter
 import { Fournisseur } from '../../models/fournisseur';
 import { FournisseurService } from '../../services/fournisseur.service';
 
@@ -9,14 +10,16 @@ import { FournisseurService } from '../../services/fournisseur.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './fournisseur.html',
-  styleUrl: './fournisseur.css',
 })
 export class FournisseurComponent implements OnInit {
   fournisseurs: Fournisseur[] = [];
-  fournisseur: Fournisseur = { id: 0, nom: '', contact: '', note: 0 };
+  fournisseur: Fournisseur = { id: 0, nom: '', contact: '', qualiteService: 'Bon', note: 0 };
   isEdit = false;
 
-  constructor(private fournisseurService: FournisseurService) {}
+  constructor(
+    private fournisseurService: FournisseurService,
+    private router: Router, // ← ajouter
+  ) {}
 
   ngOnInit() {
     this.getAll();
@@ -53,6 +56,11 @@ export class FournisseurComponent implements OnInit {
     });
   }
 
+  // ← ajouter cette méthode
+  commander(f: Fournisseur) {
+    this.router.navigate(['/commande', f.id, f.nom]);
+  }
+
   delete(id: number) {
     if (confirm('Êtes vous sûr de supprimer ?')) {
       this.fournisseurService.delete(id).subscribe(() => {
@@ -62,7 +70,7 @@ export class FournisseurComponent implements OnInit {
   }
 
   reset() {
-    this.fournisseur = { id: 0, nom: '', contact: '', note: 0 };
+    this.fournisseur = { id: 0, nom: '', contact: '', qualiteService: 'Bon', note: 0 }; // ← Bon par défaut
     this.isEdit = false;
   }
 }

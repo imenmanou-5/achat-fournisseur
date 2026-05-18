@@ -1,55 +1,49 @@
-<div>
-  <div class="page-header">
-    <h2>Lignes Commande</h2>
-    <p>Détail des produits commandés</p>
-  </div>
+<div class="container">
+  <div class="main">
+    <h2>Gestion des Lignes Commande Achat</h2>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Ajouter / Modifier</span>
-    </div>
-    <div class="form-grid">
+    <div class="form">
       <input [(ngModel)]="ligne.produit" placeholder="Produit" />
       <input [(ngModel)]="ligne.quantite" placeholder="Quantité" type="number" />
       <input [(ngModel)]="ligne.prixUnitaire" placeholder="Prix Unitaire" type="number" />
-      <input [(ngModel)]="ligne.idCommande" placeholder="ID Commande" type="number" />
+
+      <select [(ngModel)]="ligne.idCommande">
+        <option [value]="0" disabled>-- Choisir une commande --</option>
+        <option *ngFor="let c of commandes" [value]="c.id">
+          Commande #{{ c.id }} — {{ c.statut }} — {{ c.montant }} DT
+        </option>
+      </select>
+
       <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
       <button class="btn-secondary" (click)="reset()">Annuler</button>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Liste des Lignes</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Produit</th>
-          <th>Quantité</th>
-          <th>Prix Unitaire</th>
-          <th>ID Commande</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let l of lignes">
-          <td>{{ l.id }}</td>
-          <td>{{ l.produit }}</td>
-          <td>
-            <span class="badge badge-blue">{{ l.quantite }}</span>
-          </td>
-          <td>{{ l.prixUnitaire }} DT</td>
-          <td>{{ l.idCommande }}</td>
-          <td>
-            <div class="actions">
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Prix Unitaire</th>
+            <th>Commande</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let l of lignes">
+            <td class="ligne-id">{{ l.id }}</td>
+            <td>{{ l.produit }}</td>
+            <td>{{ l.quantite }}</td>
+            <td class="ligne-prix">{{ l.prixUnitaire }} DT</td>
+            <td>Commande #{{ l.idCommande }}</td>
+            <td class="actions">
               <button class="btn-warning" (click)="edit(l)">Modifier</button>
               <button class="btn-danger" (click)="delete(l.id)">Supprimer</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

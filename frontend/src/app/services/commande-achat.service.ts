@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommandeAchat } from '../models/commande-achat';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class CommandeAchatService {
-  private url = 'http://localhost:9090/commande';
+  private url = `${environment.apiUrl}/commande`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +22,6 @@ export class CommandeAchatService {
   save(c: CommandeAchat): Observable<void> {
     return this.http.post<void>(`${this.url}/add`, c);
   }
-
   updateStatut(id: number, statut: string): Observable<void> {
     return this.http.put<void>(`${this.url}/statut/${id}?statut=${statut}`, {});
   }

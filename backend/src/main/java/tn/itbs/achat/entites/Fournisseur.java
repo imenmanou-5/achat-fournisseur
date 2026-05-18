@@ -1,5 +1,4 @@
 package tn.itbs.achat.entites;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +11,8 @@ public class Fournisseur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String nom;
     private String contact;
+    private String qualiteService; // ← ajouter !
     private double note;
 }

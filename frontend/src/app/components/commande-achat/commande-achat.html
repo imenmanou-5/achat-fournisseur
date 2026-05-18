@@ -1,56 +1,84 @@
-<div>
-  <div class="page-header">
-    <h2>Commandes Achat</h2>
-    <p>Gérez et suivez vos commandes fournisseurs</p>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Ajouter / Modifier</span>
+<div class="container">
+  <div class="main">
+    <!-- 🔹 AJOUTEZ CES CARTES STATS ICI (avant le h2) -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Commandes</div>
+        <div class="stat-value">{{ commandes.length }}</div>
+        <div class="stat-badge">Active</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">En Attente</div>
+        <div class="stat-value">{{ getStatutCount('En attente') }}</div>
+        <div class="stat-badge badge-orange">En attente</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">En Cours</div>
+        <div class="stat-value">{{ getStatutCount('En cours') }}</div>
+        <div class="stat-badge badge-blue">En cours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Livrées</div>
+        <div class="stat-value">{{ getStatutCount('Livrée') }}</div>
+        <div class="stat-badge badge-green">Livrées</div>
+      </div>
     </div>
-    <div class="form-grid">
-      <input [(ngModel)]="commande.statut" placeholder="Statut" />
-      <input [(ngModel)]="commande.montant" placeholder="Montant" type="number" />
-      <input [(ngModel)]="commande.idFournisseur" placeholder="ID Fournisseur" type="number" />
+
+    <h2>Gestion des Commandes Achat</h2>
+
+    <!-- RESTE DE VOTRE CODE (form + tableau) -->
+    <div class="form">
+      <select [(ngModel)]="commande.idFournisseur">
+        <option [value]="0" disabled>-- Choisir un Fournisseur --</option>
+        <option *ngFor="let f of fournisseurs" [value]="f.id">{{ f.nom }}</option>
+      </select>
+
       <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
       <button class="btn-secondary" (click)="reset()">Annuler</button>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Liste des Commandes</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Statut</th>
-          <th>Montant</th>
-          <th>Fournisseur</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let c of commandes">
-          <td>{{ c.id }}</td>
-          <td>{{ c.date }}</td>
-          <td>
-            <span class="badge badge-blue">{{ c.statut }}</span>
-          </td>
-          <td>{{ c.montant }} DT</td>
-          <td>{{ c.idFournisseur }}</td>
-          <td>
-            <div class="actions">
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>Montant</th>
+            <th>Fournisseur</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of commandes">
+            <td>{{ c.id }}</td>
+            <td>{{ c.date | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <!-- 🔹 AJOUTEZ LE BADGE POUR LE STATUT -->
+              <span
+                class="badge"
+                [class.badge-orange]="c.statut === 'En attente'"
+                [class.badge-blue]="c.statut === 'En cours'"
+                [class.badge-green]="c.statut === 'Livrée'"
+              >
+                {{ c.statut }}
+              </span>
+            </td>
+            <td>
+              <strong>{{ c.montant }} DT</strong>
+            </td>
+            <td>{{ getNomFournisseur(c.idFournisseur) }}</td>
+            <td class="actions">
               <button class="btn-warning" (click)="edit(c)">Modifier</button>
               <button class="btn-danger" (click)="delete(c.id)">Supprimer</button>
-              <button class="btn-primary" (click)="updateStatut(c.id, 'En cours')">En cours</button>
-              <button class="btn-success" (click)="updateStatut(c.id, 'Livrée')">Livrée</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <button class="btn-success" (click)="ajouterLigne(c.id)">➕ Ajouter ligne</button>
+              <button class="btn-primary" (click)="avancerStatut(c)">
+                {{ getProchainStatut(c.statut) }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

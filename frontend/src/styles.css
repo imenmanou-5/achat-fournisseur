@@ -176,6 +176,29 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+/* ← ajouter après les styles input existants */
+select {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 150px;
+  outline: none;
+  color: #1e293b;
+  background-color: white;
+  cursor: pointer;
+  appearance: none; /* ← supprime le style natif du navigateur */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
 /* Buttons */
 .btn-primary {
   background-color: #6366f1;
@@ -285,4 +308,256 @@ tr:hover td {
 .actions {
   display: flex;
   gap: 8px;
+}
+
+/* ========== AJOUTS POUR LA PAGE COMMANDES ========== */
+
+/* Style du formulaire sur la page commandes */
+.form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+}
+
+.form select {
+  flex: 2;
+  min-width: 200px;
+}
+
+/* Amélioration du tableau commandes */
+.card table {
+  margin-top: 8px;
+}
+
+.card th {
+  background-color: #f8fafc;
+}
+
+/* Style pour le montant */
+td strong {
+  color: #059669;
+}
+
+/* Style pour l'ID */
+td:first-child {
+  font-weight: 500;
+  color: #6366f1;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .form select,
+  .form button {
+    width: 100%;
+  }
+
+  .card {
+    overflow-x: auto;
+  }
+
+  .card table {
+    min-width: 600px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+}
+
+app-commande-achat .main {
+  margin-left: 0 !important;
+}
+
+/* Ou si votre sidebar est dans la page commandes, cachez-la */
+app-commande-achat .sidebar {
+  display: none !important;
+}
+
+/* ========== PAGE LIGNES COMMANDE - CORRECTION COMPLÈTE ========== */
+
+/* Garder le formulaire visible */
+app-lignes-commande .form {
+  display: flex !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 24px !important;
+  padding: 20px !important;
+  background-color: #f8fafc !important;
+  border-radius: 12px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Garder le tableau visible */
+app-lignes-commande .card {
+  background: white !important;
+  border-radius: 14px !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  display: block !important;
+}
+
+app-lignes-commande table {
+  width: 100% !important;
+  display: table !important;
+}
+
+app-lignes-commande thead {
+  display: table-header-group !important;
+}
+
+app-lignes-commande tbody {
+  display: table-row-group !important;
+}
+
+app-lignes-commande tr {
+  display: table-row !important;
+}
+
+app-lignes-commande th,
+app-lignes-commande td {
+  display: table-cell !important;
+  padding: 12px 16px !important;
+}
+
+/* ou */
+app-ligne-commande-achat .main {
+  margin-left: 0 !important;
+}
+
+/* ========== DESIGN POUR LA PAGE HISTORIQUE ACHATS ========== */
+
+/* Style du tableau */
+app-historique .card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+app-historique table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+app-historique th {
+  background-color: #f8fafc;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+app-historique td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+app-historique tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Style pour l'ID */
+app-historique td:first-child {
+  font-weight: 500;
+  color: #6366f1;
+}
+
+/* Style pour le délai */
+app-historique td:nth-child(4) {
+  font-weight: 500;
+}
+
+/* Style pour la date */
+app-historique td:nth-child(5) {
+  font-family: monospace;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Boutons d'action */
+app-historique .actions {
+  display: flex;
+  gap: 8px;
+}
+
+app-historique .btn-warning {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+app-historique .btn-warning:hover {
+  background-color: #bfdbfe;
+}
+
+app-historique .btn-danger {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+app-historique .btn-danger:hover {
+  background-color: #fecaca;
+}
+
+/* ========== BOUTON COMPARER OFFRES (UN SEUL) ========== */
+.btn-compare {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-compare:hover {
+  background-color: #4f46e5;
+}
+
+/* ========== CORRECTIONS DES DÉCALAGES ========== */
+app-commande-achat .main {
+  margin-left: 0 !important;
+}
+
+app-commande-achat .sidebar {
+  display: none !important;
+}
+
+app-ligne-commande-achat .main {
+  margin-left: 0 !important;
+}
+
+app-historique-achats .main {
+  margin-left: 0 !important;
 }

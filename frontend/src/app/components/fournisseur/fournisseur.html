@@ -19,7 +19,13 @@
     <div class="form-grid">
       <input [(ngModel)]="fournisseur.nom" placeholder="Nom du fournisseur" />
       <input [(ngModel)]="fournisseur.contact" placeholder="Contact" />
-      <input [(ngModel)]="fournisseur.note" placeholder="Note" type="number" />
+      <select [(ngModel)]="fournisseur.qualiteService">
+        <option value="" disabled>-- Qualité de service --</option>
+        <option value="Excellent">Excellent</option>
+        <option value="Bon">Bon</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Mauvais">Mauvais</option>
+      </select>
       <button class="btn-primary" (click)="save()">{{ isEdit ? 'Modifier' : 'Ajouter' }}</button>
       <button class="btn-secondary" (click)="reset()">Annuler</button>
     </div>
@@ -35,6 +41,7 @@
           <th>ID</th>
           <th>Nom</th>
           <th>Contact</th>
+          <th>Qualité Service</th>
           <th>Note</th>
           <th>Actions</th>
         </tr>
@@ -44,6 +51,7 @@
           <td>{{ f.id }}</td>
           <td>{{ f.nom }}</td>
           <td>{{ f.contact }}</td>
+          <td>{{ f.qualiteService }}</td>
           <td>
             <span class="badge badge-green">⭐ {{ f.note }}/5</span>
           </td>
@@ -52,6 +60,8 @@
               <button class="btn-warning" (click)="edit(f)">Modifier</button>
               <button class="btn-danger" (click)="delete(f.id)">Supprimer</button>
               <button class="btn-primary" (click)="evaluer(f.id)">Évaluer</button>
+              <button class="btn-success" (click)="commander(f)">Commander</button>
+              <!-- ← ajouter -->
             </div>
           </td>
         </tr>

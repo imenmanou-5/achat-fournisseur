@@ -23,6 +23,10 @@ public class LigneCommandeAchatService {
 
     @Autowired
     private LigneCommandeAchatConverter ligneConverter;
+    
+    @Autowired
+    private CommandeAchatService commandeService; 
+
 
     public List<LigneCommandeAchatDTO> getAll() {
         return ligneConverter.toDtoList(ligneRepo.findAll());
@@ -40,9 +44,14 @@ public class LigneCommandeAchatService {
                 .orElseThrow(() -> new RuntimeException("Commande non trouvée"));
         l.setCommande(c);
         ligneRepo.save(l);
+        commandeService.updateMontant(dto.getIdCommande()); // ← ajouter ici !
     }
-
     public void delete(int id) {
+        // récupérer idCommande avant suppression
+        LigneCommandeAchat l = ligneRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ligne non trouvée"));
+        int idCommande = l.getCommande().getId(); // ← ajouter
         ligneRepo.deleteById(id);
+        commandeService.updateMontant(idCommande); // ← recalculer après suppression
     }
 }

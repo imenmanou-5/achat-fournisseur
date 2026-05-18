@@ -1,0 +1,30 @@
+<div>
+  <div class="page-header">
+    <h2>Catalogue Produits</h2>
+    <p>Choisissez un produit pour créer une ligne de commande</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Liste des Produits</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Prix Unitaire</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of produits">
+          <td>{{ p.nom }}</td>
+          <td>{{ p.prix }} DT</td>
+          <td>
+            <button class="btn-primary" (click)="commander(p)">Commander</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
