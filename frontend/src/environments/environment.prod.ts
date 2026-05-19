@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://TON-URL-GOOGLE-CLOUD.run.app', // ← changer après déploiement
+  apiUrl: 'https://backend-206151510873.europe-west1.run.app',
 };

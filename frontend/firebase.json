@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/achat-fournisseur-frontend",
+    "public": "dist/achat-fournisseur-frontend/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
